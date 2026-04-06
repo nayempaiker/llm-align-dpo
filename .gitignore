@@ -1,0 +1,30 @@
+# virtual environment
+.llm-align-dpo/
+
+# data — raw downloads are too large for git
+data/raw/
+
+# model checkpoints — push these to HuggingFace Hub instead
+checkpoints/
+
+# processed data — regeneratable from scripts
+data/processed/
+
+# environment secrets
+.env
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# jupyter
+.ipynb_checkpoints/
+
+# wandb logs
+wandb/
+
+# os
+.DS_Store
