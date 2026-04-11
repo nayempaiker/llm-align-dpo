@@ -44,9 +44,9 @@ class TrainingConfig:
 
     # training
     num_train_epochs: int = 2
-    per_device_train_batch_size: int = 4
+    per_device_train_batch_size: int = 8   #4
     per_device_eval_batch_size: int = 4
-    gradient_accumulation_steps: int = 4   
+    gradient_accumulation_steps: int = 2   #4
     learning_rate: float = 2e-4
     lr_scheduler_type: str = "cosine"
     warmup_ratio: float = 0.05
@@ -55,9 +55,9 @@ class TrainingConfig:
 
     # eval and saving
     eval_strategy: str = "steps"
-    eval_steps: int = 100
+    eval_steps: int = 500   # 100
     save_strategy: str = "steps"
-    save_steps: int = 100
+    save_steps: int = 500   # 100
     save_total_limit: int = 2                  
     load_best_model_at_end: bool = True
     metric_for_best_model: str = "eval_loss"
@@ -174,6 +174,7 @@ def load_sft_dataset(
  
     train_raw = load_jsonl(processed_dir / "sft_train.jsonl")
     eval_raw  = load_jsonl(processed_dir / "sft_eval.jsonl")
+    eval_raw  = eval_raw[:500] 
  
     if max_samples:
         train_raw = train_raw[:max_samples]
