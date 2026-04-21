@@ -28,3 +28,5 @@ wandb/
 
 # os
 .DS_Store
+logs/*.log
+logs/*.pid

@@ -27,6 +27,23 @@ logger = logging.getLogger(__name__)
 
 # argument parsing
 def parse_args() -> argparse.Namespace:
+    """
+    --exp: experiment name/number
+    --dataset: dataset name
+    --base-model: huggingface id for the base model (mistralai/Mistral-7B-v0.1)
+    --lora-r: LoRA rank
+    --lora-alpha: LoRA alpha
+    --lora-dropout: LoRA dropout
+    --epochs: number of epochs
+    --batch-size: training batch size per device
+    --grad-accum: gradient accumulation steps
+    --lr: learning rate
+    --max-seq-len: maximum sequence length
+    --max-samples: max samples
+    --wandb-project: wandb project name
+    --no-wandb: disable wandb logging
+    --dry-run: Print config without training
+    """
     parser = argparse.ArgumentParser(
         description="Run SFT fine-tuning on a processed dataset.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -37,7 +54,7 @@ def parse_args() -> argparse.Namespace:
         "--exp",
         type=str,
         required=True,
-        help="Experiment name, e.g. exp_001. Used for checkpoint dir and W&B run name.",
+        help="Experiment name, e.g. exp_001. Used for checkpoint dir and wandb run name.",
     )
     parser.add_argument(
         "--dataset",
@@ -70,8 +87,8 @@ def parse_args() -> argparse.Namespace:
  
 
     # logging
-    parser.add_argument("--wandb-project", type=str, default="llm-align-dpo", help="W&B project name.")
-    parser.add_argument("--no-wandb", action="store_true", help="Disable W&B logging.")
+    parser.add_argument("--wandb-project", type=str, default="llm-align-dpo", help="Wandb project name.")
+    parser.add_argument("--no-wandb", action="store_true", help="Disable wandb logging.")
  
     # misc
     parser.add_argument("--dry-run", action="store_true", help="Print config without training.")
@@ -87,6 +104,7 @@ def build_paths(exp: str, dataset: str) -> tuple[Path, Path]:
     """
     processed_dir  = PROJECT_ROOT / "data" / "processed" / dataset
     checkpoint_dir = PROJECT_ROOT / "checkpoints" / exp / "sft"
+
     return processed_dir, checkpoint_dir
 
 
@@ -146,7 +164,7 @@ def main() -> None:
         print(f"max_seq_length: {cfg.max_seq_length}")
         print(f"max_samples: {args.max_samples or 'all'}")
         print(f"wandb_project: {args.wandb_project}")
-        print(f"W&B logging: {'disabled' if args.no_wandb else 'enabled'}")
+        print(f"wandb logging: {'disabled' if args.no_wandb else 'enabled'}")
         print("\nNo training started. Remove --dry-run to execute.\n")
         return
  
