@@ -58,9 +58,9 @@ Mistral-7B fine-tuned end-to-end with a two-stage DPO alignment pipeline on a si
 |---|---|
 | Mistral-7B base | 7.3 / 10 |
 | Mistral-7B SFT | 8.9 / 10 |
-| **Mistral-7B DPO (this model)** | **9.1 / 10** |
+| **Mistral-7B DPO (this model)** | **9.2 / 10** |
  
-**DPO win rate vs SFT: 73%** across two evaluation runs of 50 prompts each, judged by GPT-4o-mini.
+**DPO win rate vs SFT: 71%** averaged across three evaluation runs of 50 prompts each, judged by GPT-4o-mini.
  
 ## Training
  
